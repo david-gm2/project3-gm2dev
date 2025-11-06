@@ -1,0 +1,120 @@
+.auth-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    background-image: url("/auth-hero.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* --- Formulario estilo Minecraft --- */
+.auth-form {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    background: rgba(20, 20, 20, 0.8);
+    border: 4px solid #3a3a3a;
+    border-radius: 6px;
+    box-shadow: 0 0 0 3px #2c2c2c, 0 0 20px #000 inset;
+
+    color: #e2e2e2;
+    font-size: 16px;
+
+    width: 320px;
+    padding: 24px 32px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.auth-form div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* --- Fondo con icono --- */
+.auth-form::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/icons/icon-user.svg") center/250px no-repeat;
+    opacity: 0.5;
+    z-index: -1;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+/* --- Campos --- */
+.auth-form label {
+  margin-top: 6px;
+  color: #4ea830;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.auth-form input {
+  background: #2a2a2a;
+  color: #d7d7d7;
+  border: 2px solid #555;
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+  transition: 0.15s;
+}
+
+.auth-form input:focus {
+  border-color: #4ea830;
+  box-shadow: 0 0 8px #4ea830;
+}
+
+/* --- Botón --- */
+.auth-form button {
+  margin-top: 12px;
+  padding: 8px;
+  background: linear-gradient(90deg, #3faa2f, #15510c);
+  color: #ffffffc1;
+  font-family: inherit;
+  font-size: 22px;
+  border: 3px solid #0e300a;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.15s;
+}
+
+.auth-form button:hover {
+  background: linear-gradient(180deg, #4ea830, #247d1a);
+  transform: scale(1.02);
+  box-shadow: 0 0 10px #3faa2f;
+}
+.auth-form button:active {
+  background: linear-gradient(180deg, #4ea830, #247d1a);
+  transform: scale(1.02);
+  box-shadow: 0 0 10px #3faa2f;
+}
+
+/* --- Link alternativo (registrar / iniciar) --- */
+.auth-page p {
+  margin-top: 14px;
+  font-size: 20px;
+  color: #d7d7d7;
+  cursor: pointer;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.auth-page p:hover {
+  color: #4ea830;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 2px;
+}
