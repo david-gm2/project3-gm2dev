@@ -1,8 +1,8 @@
 // src/services/authService.js
-const API_URL = "https://minecraftbackend-production.up.railway.app/";
+const API_URL = "https://minecraftbackend-production.up.railway.app";
 
 export async function loginService({ email, password }) {
-  const res = await fetch(`${API_URL}users/auth`, {
+  const res = await fetch(`${API_URL}/users/auth`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -21,7 +21,7 @@ export async function loginService({ email, password }) {
 }
 
 export async function registerService({ name, email, password }) {
-  const res = await fetch(`${API_URL}users/auth`, {
+  const res = await fetch(`${API_URL}/users/auth`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, password }),

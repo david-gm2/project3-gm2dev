@@ -28,7 +28,8 @@ Router.post('/auth', async (err, req, res, next) => {
   try {
     console.log('asd');
     userRepository.create(req.body);
-    userRepository.list();
+    const users = userRepository.list();
+    console.log(users)
     res.json({ message: 'Auth endpoint OK act' });
   } catch (err) {
     next(err);
