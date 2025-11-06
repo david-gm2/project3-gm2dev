@@ -16,10 +16,11 @@ Router.get('/', async (req, res, next) => {
 Router.post('/auth', async (req, res, next) => {
   try {
     console.log('asd');
-    res.send('Auth endpoint');
+    res.json({ message: 'Auth endpoint OK' }); // ✅ JSON válido
   } catch (err) {
     next(err);
   }
 });
+
 
 export default Router;

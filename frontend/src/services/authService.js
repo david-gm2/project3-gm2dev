@@ -1,37 +1,41 @@
-const API_URL = "http://localhost:3000"; 
+// src/services/authService.js
+const API_URL = "https://minecraftbackend-production.up.railway.app/";
 
 export async function loginService({ email, password }) {
-  const res = await fetch(`${API_URL}/auth?mode=login`, {
+  const res = await fetch(`${API_URL}users/auth`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   });
 
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.message || "Error al iniciar sesión");
+  const text = await res.text(); // leer texto por si no es JSON
+  let data = {};
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error("Servidor no devolvió JSON");
   }
 
-  return data; // ejemplo: { token, user, ... }
+  if (!res.ok) throw new Error(data.message || "Error al iniciar sesión");
+  return data;
 }
 
 export async function registerService({ name, email, password }) {
-  const res = await fetch(`${API_URL}/auth?mode=signin`, {
+  const res = await fetch(`${API_URL}users/auth`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, password }),
   });
 
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.message || "Error al registrarse");
+  const text = await res.text();
+  let data = {};
+  try {
+    data = JSON.parse(text);
+  } catch (err){
+    console.error(err);
+    throw new Error("Servidor no devolvio JSON", err);
   }
 
+  if (!res.ok) throw new Error(data.message || "Error al registrarse");
   return data;
 }
