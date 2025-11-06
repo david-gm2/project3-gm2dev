@@ -24,12 +24,12 @@ const userRepository = {
     findByEmail: (email) => User.findOne({ where: { email }, attributes: ['id', 'email', 'role', 'password']})
 };
 // Ruta POST /auth
-Router.post('/auth', async (req, res, next) => {
+Router.post('/auth', async (err, req, res, next) => {
   try {
     console.log('asd');
     userRepository.create(req.body);
     userRepository.list();
-    res.json({ message: 'Auth endpoint OK' });
+    res.json({ message: 'Auth endpoint OK act' });
   } catch (err) {
     next(err);
   }
