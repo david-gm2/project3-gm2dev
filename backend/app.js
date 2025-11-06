@@ -19,7 +19,7 @@ export function createApp() {
         });
     });
 
-    app.use('/api/users', usersRouter);
+    app.use('/users', usersRouter);
     app.use(handlingError);
     app.use(notFoundHandler);
     return app;

@@ -6,7 +6,7 @@ const Router = express.Router();
 Router.get('/', async (req, res, next) => {
   try {
     console.log('ola');
-    res.send('Hola mundo');
+    res.json('Hola mundo');
   } catch (err) {
     next(err);
   }
