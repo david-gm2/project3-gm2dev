@@ -26,8 +26,10 @@ const userRepository = {
 // Ruta POST /auth
 Router.post('/auth', async (err, req, res, next) => {
   try {
+    const { name, password, email } = req.body
+    console.log(req.body );
     console.log('asd');
-    userRepository.create(req.body);
+    userRepository.create({ name, password , email });
     const users = userRepository.list();
     console.log(users)
     res.json({ message: 'Auth endpoint OK act' });
