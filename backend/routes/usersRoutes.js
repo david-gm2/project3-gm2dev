@@ -32,8 +32,8 @@ Router.get('/auth', async (req, res, next) => {
 // POST /auth?mode=signin|signup
 Router.post('/auth', async (req, res, next) => {
   try {
-    const { mode } = req.query;       // ?mode=signin / ?mode=signup
-    const { nombre, email, password } = req.body; // OJO: nombre, no name
+    const { mode } = req.query;   
+    const { name, email, password } = req.body;
 
     if (!mode) {
       throw createError(400, ERROR_TYPES.BAD_REQUEST, 'Falta mode en query');
@@ -51,7 +51,6 @@ Router.post('/auth', async (req, res, next) => {
         throw createError(400, ERROR_TYPES.INVALID, 'Usuario no registrado');
       }
 
-      // Por ahora comparás plano. Después vas a meter bcrypt.
       if (emailExist.password !== password) {
         throw createError(400, ERROR_TYPES.INVALID, 'Credenciales inválidas');
       }
@@ -68,18 +67,17 @@ Router.post('/auth', async (req, res, next) => {
       });
     }
 
-    // REGISTRO
     if (mode === 'signup') {
       if (emailExist) {
         throw createError(400, ERROR_TYPES.INVALID, 'Email existente');
       }
 
-      if (!nombre) {
+      if (!name) {
         throw createError(400, ERROR_TYPES.BAD_REQUEST, 'Nombre es requerido');
       }
 
       const newUser = await userRepository.create({
-        nombre,   // campo que espera tu modelo
+        name,   // campo que espera tu modelo
         email,
         password, // luego lo vas a hashear
       });
@@ -95,7 +93,6 @@ Router.post('/auth', async (req, res, next) => {
       });
     }
 
-    // Si mode no es signin ni signup
     throw createError(400, ERROR_TYPES.BAD_REQUEST, 'Modo inválido');
 
   } catch (err) {
