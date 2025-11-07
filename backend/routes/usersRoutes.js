@@ -24,10 +24,8 @@ const userRepository = {
     findByEmail: (email) => User.findOne({ where: { email }, attributes: ['id', 'email', 'role', 'password']})
 };
 // Ruta POST /auth
-import { Router } from 'express';
-const router = Router();
 
-router.post('/auth', (req, res) => {
+Router.post('/auth', (req, res) => {
   const { mode } = req.query; // lee ?mode=signin o ?mode=signup
   const data = req.body;
 
