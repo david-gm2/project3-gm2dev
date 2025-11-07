@@ -1,4 +1,6 @@
 import express from 'express';
+import { createError } from '../utils/errorUtils.js'
+import { ERROR_TYPES } from '../constants/errorTypes.js';
 
 const Router = express.Router();
 
@@ -26,20 +28,30 @@ const userRepository = {
 // Ruta POST /auth
 
 Router.post('/auth', (req, res) => {
-  const { mode } = req.query; // lee ?mode=signin o ?mode=signup
-  const data = req.body;
+  try { 
+    const { mode } = req.query; // lee ?mode=signin o ?mode=signup
+    const { name, email , password} = req.body;
+  
 
-  if (mode === 'signin') {
-    // lógica de inicio de sesión
-    return res.json({ action: 'signin', data });
+    const emailExist = userRepository.findByEmail(email)
+    if (mode === 'signin') {
+      if (!emailExist) throw createError(400, ERROR_TYPES.INVALID, 'Usuario no registrado')
+      
+    if ( emailExist.password !== password )  throw createError(400, ERROR_TYPES.INVALID, 'Usuario no registrado')
+    }
+  
+    if (mode === 'signup') {
+      if (emailExist) throw createError(400, ERROR_TYPES.INVALID, 'Email existnente')
+  
+      userRepository.create(name, email , password)
+  
+    }
+  
+    return res.status(400).json({ error: 'Modo inválido' });
+    
+  } catch {
+    next();
   }
-
-  if (mode === 'signup') {
-    // lógica de registro
-    return res.json({ action: 'signup', data });
-  }
-
-  return res.status(400).json({ error: 'Modo inválido' });
 });
 
 
