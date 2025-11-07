@@ -3,7 +3,7 @@ import express from 'express';
 const Router = express.Router();
 
 // Ruta GET /
-Router.get('/', async (req, res, next) => {
+Router.get('/auth', async (req, res, next) => {
   try {
     console.log('ola');
     res.json('Hola mundo');
@@ -24,19 +24,26 @@ const userRepository = {
     findByEmail: (email) => User.findOne({ where: { email }, attributes: ['id', 'email', 'role', 'password']})
 };
 // Ruta POST /auth
-Router.post('/auth', async (err, req, res, next) => {
-  try {
-    const { name, password, email } = req.body
-    console.log(req.body );
-    console.log('asd');
-    userRepository.create({ name, password , email });
-    const users = userRepository.list();
-    console.log(users)
-    res.json({ message: 'Auth endpoint OK act' });
-  } catch (err) {
-    next(err);
+import { Router } from 'express';
+const router = Router();
+
+router.post('/auth', (req, res) => {
+  const { mode } = req.query; // lee ?mode=signin o ?mode=signup
+  const data = req.body;
+
+  if (mode === 'signin') {
+    // lógica de inicio de sesión
+    return res.json({ action: 'signin', data });
   }
+
+  if (mode === 'signup') {
+    // lógica de registro
+    return res.json({ action: 'signup', data });
+  }
+
+  return res.status(400).json({ error: 'Modo inválido' });
 });
+
 
 
 export default Router;
