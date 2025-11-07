@@ -27,7 +27,7 @@ const userRepository = {
 };
 // Ruta POST /auth
 
-Router.post('/auth', (req, res) => {
+Router.post('/auth', (err, req, res, next) => {
   try { 
     const { mode } = req.query; // lee ?mode=signin o ?mode=signup
     const { name, email , password} = req.body;
